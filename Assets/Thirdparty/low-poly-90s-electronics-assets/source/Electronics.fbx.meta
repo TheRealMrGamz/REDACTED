@@ -1,0 +1,284 @@
+fileFormatVersion: 2
+guid: d8a0fe7397ab424429051e6f1ea9d1fe
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blank Cassette Tape
+    second: {fileID: 2100000, guid: 43be3ae6f339ce24ab6945628e50160f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blank Floppy Disk
+    second: {fileID: 2100000, guid: 5a5f6f53d6f765f4fa8389d5d92b1670, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blank VHS Tape
+    second: {fileID: 2100000, guid: c6536cffeb5083d4894f526a6fec5fd4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brick Phone
+    second: {fileID: 2100000, guid: 2d8edf99db856a64fa79eaaabe29fd00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CD
+    second: {fileID: 2100000, guid: 5e48b87f14d49b8478dec26b349528ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CD Case
+    second: {fileID: 2100000, guid: 90b5f5595a2118248a6de071969bba55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Calculator.001
+    second: {fileID: 2100000, guid: f87fe71683057844d9e3b1f718e80b42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Camera
+    second: {fileID: 2100000, guid: 31296fce2eaab1f4483ee8410d84d8a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cassette Tape
+    second: {fileID: 2100000, guid: d23859d90adae6a4db1b8c5173ee9bf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Doom Floppy Disk
+    second: {fileID: 2100000, guid: 0d61c5b22b8242a4d96973b1b3bf7a81, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Game Boy
+    second: {fileID: 2100000, guid: 9c4b28c42c957e849897057121d1bf18, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HandyCam.001
+    second: {fileID: 2100000, guid: 2a089138a9ca6a74fad80f726b0e8b09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Photo Film
+    second: {fileID: 2100000, guid: e035cb51227d6a84eaf123e0eeca60fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Register
+    second: {fileID: 2100000, guid: 344c15400d7455349b62a95239e7d776, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sanyo M2429F Radio
+    second: {fileID: 2100000, guid: a739c82840bb2054bbea21addef5f682, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Telephone
+    second: {fileID: 2100000, guid: 44853a01bbb24174b842d0889a27f9d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Walkman
+    second: {fileID: 2100000, guid: b2c7deb5747c8ac4298036bd65283d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Walkman.001
+    second: {fileID: 2100000, guid: d267a97c3da82db4aaa5f35c1abbf7c9, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 128px Calc
+    second: {fileID: 2800000, guid: fd280a1d506b52040948cd3216f7005e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Awesome Mix Vol.1 256x256
+    second: {fileID: 2800000, guid: e453a351ba06d154e9373f19bea54933, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Blank Cassette Tape 256x256
+    second: {fileID: 2800000, guid: a69fd5f9beab8c142951e4b5ff90ed69, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Blank VHS 256x256
+    second: {fileID: 2800000, guid: 47bab4a5bd0be0c428d36bc31ce80622, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Brick Phone Textures 256x256
+    second: {fileID: 2800000, guid: 97526eb0a78c9f145800e0925acfe656, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CD Textures
+    second: {fileID: 2800000, guid: 698ae0d0f5081b0448eb84b754a5f830, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CD Textures 256x256
+    second: {fileID: 2800000, guid: 83a3975287eea0b4292234c90433fc7c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Camera 256x256
+    second: {fileID: 2800000, guid: 8c9053ba4643004478115c93a07c5698, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Game Boy Textures 256x256
+    second: {fileID: 2800000, guid: 49c532fab840ad14da06755e60cb17a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: HandCam Textures 256x256
+    second: {fileID: 2800000, guid: 4364370ea3cfd2248b711f9e77ceb8dc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Low Res Doom Floppy
+    second: {fileID: 2800000, guid: ea0a6ff555b1e5e4cafcb488ab803e2a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Low Res Floppy Disk
+    second: {fileID: 2800000, guid: 738ea6452c7294d4981fdd0ce19c43f3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Radio Textures 256x256
+    second: {fileID: 2800000, guid: 0ca54290acf23f941b2fc5b599246e12, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Register Textures 256x256
+    second: {fileID: 2800000, guid: 9c46d2cc31195c84199d843057d04e49, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Walkman Textures 256x256
+    second: {fileID: 2800000, guid: 81c70ee0c10b35f4f99e7501a280cb8e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: film canister
+    second: {fileID: 2800000, guid: 27e316df88e96734b8097b0aa121596c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: retro phone 256x256
+    second: {fileID: 2800000, guid: f66be6208d9d2ff45b08e288c8a73b60, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

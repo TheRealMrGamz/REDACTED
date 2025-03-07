@@ -66,7 +66,9 @@ public class EnhancedCamera : InteractableBase
     [Header("Procedural Camera Movement")]
     [SerializeField] private float movementAmplitude = 0.02f;
     [SerializeField] private float movementSpeed = 14f;
-    
+    [Header("Wall Detection Settings")]
+    [SerializeField] private float raycastDistance = 20f; // Maximum distance to check for objects
+    [SerializeField] private LayerMask obstacleLayerMask; // Layer mask for obstacles like walls
     private Vector3 defaultCameraModelPos;
     private float movementTimer;
     private float currentMovementAmount;
@@ -95,6 +97,18 @@ public class EnhancedCamera : InteractableBase
 {
     interactionPrompt = "Grab Camera";
     remainingFilm = maxFilmCount;
+        
+    // Set default obstacle layer mask if not specified
+    if (obstacleLayerMask.value == 0)
+    {
+        obstacleLayerMask = Physics.DefaultRaycastLayers & ~LayerMask.GetMask("Player", "PhysicalUI", "Camera");
+    }
+        
+    if (cameraViewmodel == null)
+    {
+        return;
+    }
+
     
     if (cameraViewmodel == null)
     {
@@ -233,7 +247,7 @@ public class EnhancedCamera : InteractableBase
         
     }
  
-    private void UpdateViewfinder()
+  private void UpdateViewfinder()
     {
         if (!isZoomed || cameraLens == null) return;
     
@@ -261,13 +275,44 @@ public class EnhancedCamera : InteractableBase
             PhotoManifest[] evokingObjects = FindObjectsOfType<PhotoManifest>();
             foreach (var evokingObject in evokingObjects)
             {
-                evokingObject.OnCameraView(cameraLens);
+                // Don't notify the object if it's behind a wall
+                if (!IsObjectBlockedByWall(evokingObject.transform.position, worldLensPosition))
+                {
+                    evokingObject.OnCameraView(cameraLens);
+                }
             }
         }
     
         cameraLens.targetTexture = viewfinderTexture;
         cameraLens.Render();
         cameraLens.targetTexture = null;
+    }
+    
+    // Method to check if an object is behind a wall or other obstacle
+    private bool IsObjectBlockedByWall(Vector3 objectPosition, Vector3 cameraPosition)
+    {
+        Vector3 direction = objectPosition - cameraPosition;
+        float distance = direction.magnitude;
+        
+        // If the object is too far away, consider it blocked
+        if (distance > raycastDistance)
+        {
+            return true;
+        }
+        
+        // Raycast to check for obstacles between camera and object
+        RaycastHit hit;
+        if (Physics.Raycast(cameraPosition, direction.normalized, out hit, distance, obstacleLayerMask))
+        {
+            // If we hit something that's not the target object, there's an obstacle
+            PhotoManifest hitManifest = hit.collider.GetComponent<PhotoManifest>();
+            if (hitManifest == null || hitManifest.transform.position != objectPosition)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     private void Start()
@@ -307,6 +352,8 @@ public class EnhancedCamera : InteractableBase
 
         return false;
     }
+    
+    
     
     
     private void HandleCameraInput()
@@ -508,31 +555,51 @@ private void HandleCameraSettings()
     
         interactionPrompt = "";
     }
-    private IEnumerator TakePhoto()
+        private IEnumerator TakePhoto()
     {
         if (this.remainingFilm <= 0 || this.cameraLens == null)
         {
             yield break;
         }
+        
+        Vector3 cameraPosition = this.cameraLens.transform.position;
+        
         this.cameraLens.targetTexture = this.photoTexture;
         this.cameraLens.Render();
         this.cameraLens.targetTexture = null;
+        
         PhotoMetadata metadata = new PhotoMetadata
         {
             playerPosition = base.transform.position,
             playerRotation = base.transform.rotation
         };
-        bool flag = false;
+        
+        bool manifestedObject = false;
         foreach (PhotoManifest photoManifest in FindObjectsOfType<PhotoManifest>())
         {
-            Vector3 vector = this.cameraLens.WorldToViewportPoint(photoManifest.transform.position);
-            if (vector.z > 0f && vector.x >= 0f && vector.x <= 1f && vector.y >= 0f && vector.y <= 1f && photoManifest.TryManifest())
+            Vector3 viewportPoint = this.cameraLens.WorldToViewportPoint(photoManifest.transform.position);
+            
+            // Check if object is in camera view (in front of camera and within viewport)
+            bool isInView = viewportPoint.z > 0f && 
+                           viewportPoint.x >= 0f && 
+                           viewportPoint.x <= 1f && 
+                           viewportPoint.y >= 0f && 
+                           viewportPoint.y <= 1f;
+            
+            // Check if the object is blocked by a wall
+            bool isBlocked = IsObjectBlockedByWall(photoManifest.transform.position, cameraPosition);
+            
+            // Only manifest the object if it's in view AND not blocked
+            if (isInView && !isBlocked && photoManifest.TryManifest())
             {
-                flag = true;
+                manifestedObject = true;
             }
         }
-        bool flag2 = PhotoObjectivesManager.Instance != null && PhotoObjectivesManager.Instance.ValidatePhoto(this.cameraLens, metadata);
-        if (flag2 || flag)
+        
+        bool objectiveCompleted = PhotoObjectivesManager.Instance != null && 
+                                 PhotoObjectivesManager.Instance.ValidatePhoto(this.cameraLens, metadata);
+        
+        if (objectiveCompleted || manifestedObject)
         {
             if (this.cameraSound != null)
             {
@@ -540,15 +607,19 @@ private void HandleCameraSettings()
             }
             base.StartCoroutine(this.TriggerFlash());
         }
+        
         if (this.filmAdvanceSound != null)
         {
             this.audioSource.PlayOneShot(this.filmAdvanceSound);
         }
+        
         this.remainingFilm--;
-        if (flag2 || flag)
+        
+        if (objectiveCompleted || manifestedObject)
         {
             base.StartCoroutine(this.SavePhoto());
         }
+        
         yield break;
     }
 

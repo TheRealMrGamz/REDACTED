@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class PhotoObjective
@@ -11,6 +12,11 @@ public class PhotoObjective
     public bool isCompleted;
     public Material secretMaterial;
     public bool isPictureRequired = true;
+    
+    // Add trigger event support
+    public UnityEvent onPhotoTaken;
+    public bool triggerOnlyOnce = true;
+    public bool hasTriggeredEvent = false;
 
     [TextArea(3, 5)]
     public string description;
@@ -91,6 +97,7 @@ public class PhotoObjectivesManager : MonoBehaviour
         foreach (var objective in currentLevel.objectives)
         {
             objective.isCompleted = false;
+            objective.hasTriggeredEvent = false;
         }
         
         UpdateObjectivesDisplay();
@@ -110,34 +117,51 @@ public class PhotoObjectivesManager : MonoBehaviour
         }
         bool flag = false;
         lastCompletedObjective = null;
+        
         foreach (PhotoObjective photoObjective in currentLevel.objectives)
         {
-            if (!photoObjective.isCompleted && !(photoObjective.targetObject == null))
+            if (photoObjective.targetObject == null) continue;
+            
+            bool objectInView = IsObjectInCameraView(playerCamera, photoObjective.targetObject, 10f);
+            
+            // Handle triggers for objects in view
+            if (objectInView)
             {
-                if (!photoObjective.isPictureRequired)
+                // Fire trigger event even if the objective is already completed
+                if (!photoObjective.hasTriggeredEvent || !photoObjective.triggerOnlyOnce)
                 {
-                    if (IsObjectInCameraView(playerCamera, photoObjective.targetObject, 10f))
+                    photoObjective.onPhotoTaken?.Invoke();
+                    photoObjective.hasTriggeredEvent = true;
+                }
+                
+                // Only mark as completed if it wasn't already completed
+                if (!photoObjective.isCompleted)
+                {
+                    // Handle non-picture required objectives
+                    if (!photoObjective.isPictureRequired)
                     {
                         photoObjective.isCompleted = true;
                         flag = true;
                         lastCompletedObjective = photoObjective;
-                        this.RevealSecret(photoObjective.targetObject, photoObjective);
+                        RevealSecret(photoObjective.targetObject, photoObjective);
                     }
-                }
-                else if (IsObjectInCameraView(playerCamera, photoObjective.targetObject, 10f))
-                {
-                    photoObjective.isCompleted = true;
-                    flag = true;
-                    lastCompletedObjective = photoObjective;
-                    this.RevealSecret(photoObjective.targetObject, photoObjective);
+                    // Handle normal photo objectives
+                    else
+                    {
+                        photoObjective.isCompleted = true;
+                        flag = true;
+                        lastCompletedObjective = photoObjective;
+                        RevealSecret(photoObjective.targetObject, photoObjective);
+                    }
                 }
             }
         }
+        
         if (flag)
         {
             if (objectiveCompleteSound != null)
             {
-                audioSource.PlayOneShot(this.objectiveCompleteSound);
+                audioSource.PlayOneShot(objectiveCompleteSound);
             }
             UpdateObjectivesDisplay();
             
@@ -150,6 +174,51 @@ public class PhotoObjectivesManager : MonoBehaviour
             CheckLevelCompletion();
             return true;
         }
+        return false;
+    }
+    
+    // Take photo of a specific object by code/script (not from player camera)
+    public bool TakePhotoOfObject(string objectName)
+    {
+        if (currentLevel == null) return false;
+        
+        foreach (PhotoObjective objective in currentLevel.objectives)
+        {
+            if (objective.objectName == objectName && objective.targetObject != null)
+            {
+                // Fire trigger event
+                if (!objective.hasTriggeredEvent || !objective.triggerOnlyOnce)
+                {
+                    objective.onPhotoTaken?.Invoke();
+                    objective.hasTriggeredEvent = true;
+                }
+                
+                if (!objective.isCompleted)
+                {
+                    objective.isCompleted = true;
+                    lastCompletedObjective = objective;
+                    RevealSecret(objective.targetObject, objective);
+                    
+                    if (objectiveCompleteSound != null)
+                    {
+                        audioSource.PlayOneShot(objectiveCompleteSound);
+                    }
+                    
+                    UpdateObjectivesDisplay();
+                    
+                    if (notepad != null)
+                    {
+                        notepad.UpdateObjectivesOnNotepad();
+                    }
+                    
+                    CheckLevelCompletion();
+                    return true;
+                }
+                
+                return true; // Event was triggered even if already completed
+            }
+        }
+        
         return false;
     }
     

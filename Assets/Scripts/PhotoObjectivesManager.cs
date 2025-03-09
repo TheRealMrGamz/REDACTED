@@ -38,7 +38,7 @@ public class PhotoObjectivesManager : MonoBehaviour
     
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI levelTitleText;
-    [SerializeField] private TextMeshProUGUI objectivesList;
+    [SerializeField] private TextMeshProUGUI objectivesListText;
     
     [Header("Notepad Reference")]
     [SerializeField] private SimpleNotepadController notepad; // Reference to the notepad
@@ -271,31 +271,35 @@ public class PhotoObjectivesManager : MonoBehaviour
 
     private void UpdateObjectivesDisplay()
     {
-        if (levelTitleText == null || objectivesList == null) return;
-
         // Update level title
-        levelTitleText.text = $"<size=150%><b><color=black>{currentLevel.levelName}</color></b></size>";
-
-        // Update objectives list
-        System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-        foreach (var objective in currentLevel.objectives)
+        if (levelTitleText != null)
         {
-            if (!objective.isPictureRequired)
-                continue;
-
-            string statusIndicator = objective.isCompleted ? 
-                "<color=#2ecc71>[X]</color>" : 
-                "<color=#e74c3c>[ ]</color>";  
-
-            string objectiveText = objective.isCompleted ?
-                $"<color=#95a5a6><s>{objective.description}</s></color>" :
-                $"<color=#34495e>{objective.description}</color>"; 
-
-            sb.AppendLine($"{statusIndicator} {objectiveText}");
+            levelTitleText.text = $"<size=28>{currentLevel.levelName}</size>";
         }
 
-        objectivesList.text = sb.ToString();
+        // Update objectives list
+        if (objectivesListText != null)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            
+            // Add "Evidence:" header with larger font size
+            sb.AppendLine("<size=24><b>Evidence:</b></size>");
+            sb.AppendLine();  // Add a blank line for spacing
+
+            foreach (var objective in currentLevel.objectives)
+            {
+                if (!objective.isPictureRequired)
+                    continue;
+
+                string objectiveText = objective.isCompleted ?
+                    $"<size=20><color=#95a5a6><s>{objective.description}</s></color></size>" :
+                    $"<size=20><color=#34495e>{objective.description}</color></size>";
+
+                sb.AppendLine(objectiveText);
+            }
+
+            objectivesListText.text = sb.ToString();
+        }
     }
 
     private void CheckLevelCompletion()

@@ -12,24 +12,54 @@ public class SequentialAnimationTrigger : MonoBehaviour
     
     [Header("Settings")]
     [SerializeField] private string playerTag = "Player";
-    [SerializeField] private bool showDebugLogs = false;
+    [SerializeField] private bool showDebugLogs = true;
     
     private bool hasBeenTriggered = false;
     
+    private void Start()
+    {
+        // Ensure animations don't auto-play on start
+        if (firstAnimator != null)
+        {
+            firstAnimator.enabled = true;
+            firstAnimator.speed = 0;  // Pause animator
+            DebugLog("First animator initialized and paused");
+        }
+        
+        if (secondAnimator != null)
+        {
+            secondAnimator.enabled = true;
+            secondAnimator.speed = 0;  // Pause animator
+            DebugLog("Second animator initialized and paused");
+        }
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
+        DebugLog("Trigger entered by: " + other.name + " with tag: " + other.tag);
+        
         // Check if this is the player and trigger hasn't been activated yet
         if (other.CompareTag(playerTag) && !hasBeenTriggered)
         {
+            DebugLog("Player detected, starting animation sequence");
+            
             // Set flag to prevent multiple activations
             hasBeenTriggered = true;
             
             // Start the first animation
-            DebugLog("Playing first animation: " + firstAnimationName);
-            firstAnimator.Play(firstAnimationName);
-            
-            // Register a callback to detect when first animation ends
-            StartCoroutine(WaitForAnimationToEnd());
+            if (firstAnimator != null)
+            {
+                firstAnimator.speed = 1;  // Resume animation speed
+                firstAnimator.Play(firstAnimationName, 0, 0f);  // Play from beginning
+                DebugLog("Playing first animation: " + firstAnimationName);
+                
+                // Register a callback to detect when first animation ends
+                StartCoroutine(WaitForAnimationToEnd());
+            }
+            else
+            {
+                DebugLog("ERROR: First animator is null!");
+            }
         }
     }
     
@@ -42,23 +72,39 @@ public class SequentialAnimationTrigger : MonoBehaviour
         yield return new WaitForSeconds(animationLength);
         
         // Play the second animation
-        DebugLog("Playing second animation: " + secondAnimationName);
-        secondAnimator.Play(secondAnimationName);
+        if (secondAnimator != null)
+        {
+            secondAnimator.speed = 1;  // Resume animation speed
+            secondAnimator.Play(secondAnimationName, 0, 0f);  // Play from beginning
+            DebugLog("Playing second animation: " + secondAnimationName);
+        }
+        else
+        {
+            DebugLog("ERROR: Second animator is null!");
+        }
     }
     
     private float GetAnimationLength(Animator animator, string animName)
     {
         // Get animation length from animator
-        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        foreach (AnimationClip clip in clips)
+        if (animator != null && animator.runtimeAnimatorController != null)
         {
-            if (clip.name == animName)
+            AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
             {
-                return clip.length;
+                if (clip.name == animName)
+                {
+                    return clip.length;
+                }
             }
+            
+            DebugLog("Warning: Animation clip not found: " + animName);
+        }
+        else
+        {
+            DebugLog("ERROR: Animator or controller is null!");
         }
         
-        DebugLog("Warning: Animation clip not found: " + animName);
         return 1.0f; // Default fallback duration
     }
     
@@ -67,6 +113,17 @@ public class SequentialAnimationTrigger : MonoBehaviour
         if (showDebugLogs)
         {
             Debug.Log($"[SequentialAnimationTrigger] {message}");
+        }
+    }
+    
+    // Visual debug in scene view
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Collider col = GetComponent<Collider>();
+        if (col != null && col.isTrigger)
+        {
+            Gizmos.DrawWireCube(col.bounds.center, col.bounds.size);
         }
     }
 }

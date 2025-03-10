@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77d33682-1d1c-4b3a-83cc-c6910f3e13ca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GasStation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GasStation.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhotoObjectivesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhotoObjectivesManager.cs" afterDir="false" />
-    </list>
+    <list default="true" id="77d33682-1d1c-4b3a-83cc-c6910f3e13ca" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1741344050285</updated>
       <workItem from="1741344051406" duration="1350000" />
-      <workItem from="1741546220563" duration="1671000" />
+      <workItem from="1741546220563" duration="2266000" />
     </task>
     <servers />
   </component>

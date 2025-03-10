@@ -54391,6 +54391,10 @@ MonoBehaviour:
   collisionPullbackFactor: 0.5
   movementAmplitude: 0.02
   movementSpeed: 14
+  raycastDistance: 20
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1253742417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57307,7 +57311,8 @@ MonoBehaviour:
     objectives: []
   objectiveCompleteSound: {fileID: 0}
   levelTitleText: {fileID: 0}
-  objectivesList: {fileID: 0}
+  objectivesListText: {fileID: 0}
+  notepad: {fileID: 0}
 --- !u!4 &1339886446
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e857a096502ea674c88bfe3186cec8a5
+guid: 601daa7c39f599f439f6da4d90cdf1b3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Car5Mat
-    second: {fileID: 2100000, guid: 50f0e53fa5af20340b0f2459d6a5fc7c, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: b3066b3fd309d0347a12cae3caa4ca00, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

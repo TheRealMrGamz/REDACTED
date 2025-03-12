@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77d33682-1d1c-4b3a-83cc-c6910f3e13ca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DreamSeq1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DreamSeq1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/HallwaysTele.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/HallwaysTele.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/InfHallway.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/InfHallway.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +108,7 @@
       <workItem from="1741597038165" duration="608000" />
       <workItem from="1741686940865" duration="630000" />
       <workItem from="1741738901785" duration="867000" />
-      <workItem from="1741770604355" duration="2722000" />
+      <workItem from="1741770604355" duration="3017000" />
     </task>
     <servers />
   </component>

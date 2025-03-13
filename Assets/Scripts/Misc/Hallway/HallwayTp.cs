@@ -1,131 +1,171 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class HallwayTeleportationSystem : MonoBehaviour
+public class HallwayFlickerTeleport : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public Camera playerCamera;
-    public AudioSource breathingSound;
-    public HallwayEndTrigger doorTrigger;
+    public Light[] hallwayLights;
+    public Renderer emissionObject;
+    public GameObject[] objectsToDisable;  // Objects to disable after teleport
+    public GameObject[] objectsToDestroy;  // Objects to destroy after teleport
 
-    [Header("Settings")]
+    [Header("Teleportation Settings")]
+    public Transform teleportDestination;
     public float teleportHeightY = 20f;
-    public float raycastDistance = 15f;
-    public LayerMask triggerLayer;
 
-    private bool hasTurnedAway = false;
-    private bool isInHallway = false;
+    [Header("Flicker Settings")]
+    public float flickerDuration = 3.0f;
+    public float flickerMinIntensity = 0.1f;
+    public float flickerMaxIntensity = 1.2f;
+    public float flickerSpeed = 15f;
+    public Color emissionColor = Color.white;
+
     private bool isTeleporting = false;
+    private float[] originalLightIntensities;
+    private Material emissiveMaterial;
+    private Color originalEmissionColor;
 
     void Start()
     {
-        if (player == null) player = transform;
-        if (playerCamera == null) playerCamera = Camera.main;
-        if (triggerLayer.value == 0)
-            triggerLayer = LayerMask.GetMask("Default");
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        Debug.Log("[HallwayTeleportationSystem] Initialized.");
-    }
-
-    void Update()
-    {
-        if (!isInHallway || isTeleporting) return;
-
-        bool isLookingAtDoor = IsPlayerLookingAtDoor();
-        Debug.Log($"[HallwayTeleportationSystem] Player looking at door: {isLookingAtDoor}");
-
-        if (!isLookingAtDoor && !hasTurnedAway)
+        // Store original light intensities
+        if (hallwayLights != null && hallwayLights.Length > 0)
         {
-            hasTurnedAway = true;
-            Debug.Log("[HallwayTeleportationSystem] Player turned away from the door.");
-            if (breathingSound != null && !breathingSound.isPlaying)
-                breathingSound.Play();
-        }
-
-        if (isLookingAtDoor && hasTurnedAway)
-        {
-            Debug.Log("[HallwayTeleportationSystem] Player turned back towards the door. Teleporting...");
-            StartCoroutine(TeleportPlayer());
-        }
-    }
-
-    bool IsPlayerLookingAtDoor()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, raycastDistance, triggerLayer))
-        {
-            HallwayEndTrigger hitTrigger = hit.transform.GetComponent<HallwayEndTrigger>();
-            if (hitTrigger != null && hitTrigger.isDoorTrigger)
+            originalLightIntensities = new float[hallwayLights.Length];
+            for (int i = 0; i < hallwayLights.Length; i++)
             {
-                Debug.Log("[HallwayTeleportationSystem] Raycast hit door trigger.");
-                return true;
+                if (hallwayLights[i] != null)
+                    originalLightIntensities[i] = hallwayLights[i].intensity;
             }
         }
 
-        float angleTowardsDoor = Vector3.Angle(playerCamera.transform.forward, 
-            (doorTrigger.transform.position - playerCamera.transform.position).normalized);
-
-        bool withinAngle = angleTowardsDoor < 45f;
-        Debug.Log($"[HallwayTeleportationSystem] Angle to door: {angleTowardsDoor}, Within threshold: {withinAngle}");
-        return withinAngle;
-    }
-
-    IEnumerator TeleportPlayer()
-    {
-        isTeleporting = true;
-        Debug.Log("[HallwayTeleportationSystem] Teleporting player...");
-
-        if (breathingSound != null)
-            breathingSound.Stop();
-
-        yield return new WaitForSeconds(0.05f);
-
-        Vector3 originalPosition = player.position;
-        Quaternion originalRotation = player.rotation;
-        Vector3 newPosition = originalPosition + new Vector3(0, teleportHeightY, 0);
-        player.position = newPosition;
-        player.rotation = originalRotation;
-
-        Debug.Log($"[HallwayTeleportationSystem] Player teleported from {originalPosition} to {newPosition}");
-
-        hasTurnedAway = false;
-        isTeleporting = false;
-    }
-
-    public void EnterHallway()
-    {
-        isInHallway = true;
-        hasTurnedAway = false;
-        Debug.Log("[HallwayTeleportationSystem] Player entered hallway.");
-    }
-
-    public void ExitHallway()
-    {
-        isInHallway = false;
-        hasTurnedAway = false;
-
-        if (breathingSound != null)
-            breathingSound.Stop();
-
-        Debug.Log("[HallwayTeleportationSystem] Player exited hallway.");
+        // Get emissive material
+        if (emissionObject != null && emissionObject.materials.Length >= 2)
+        {
+            emissiveMaterial = emissionObject.materials[1];
+            if (emissiveMaterial.HasProperty("_EmissionColor"))
+            {
+                originalEmissionColor = emissiveMaterial.GetColor("_EmissionColor");
+                emissiveMaterial.EnableKeyword("_EMISSION");
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isTeleporting)
         {
-            EnterHallway();
-            Debug.Log("[HallwayTeleportationSystem] Player triggered hallway entry.");
+            StartCoroutine(FlickerAndTeleport());
         }
     }
 
-    void OnTriggerExit(Collider other)
+    IEnumerator FlickerAndTeleport()
     {
-        if (other.CompareTag("Player"))
+        isTeleporting = true;
+        float flickerTimer = 0;
+
+        while (flickerTimer < flickerDuration)
         {
-            ExitHallway();
-            Debug.Log("[HallwayTeleportationSystem] Player left the hallway.");
+            float flicker = Mathf.Lerp(flickerMinIntensity, flickerMaxIntensity,
+                                      Mathf.PerlinNoise(Time.time * flickerSpeed, 0));
+
+            if (hallwayLights != null)
+            {
+                foreach (Light light in hallwayLights)
+                {
+                    if (light != null)
+                    {
+                        int index = System.Array.IndexOf(hallwayLights, light);
+                        float originalIntensity = originalLightIntensities[index];
+                        light.intensity = originalIntensity * flicker;
+                    }
+                }
+            }
+
+            if (emissiveMaterial != null && emissiveMaterial.HasProperty("_EmissionColor"))
+            {
+                emissiveMaterial.SetColor("_EmissionColor", emissionColor * flicker);
+            }
+
+            yield return null;
+            flickerTimer += Time.deltaTime;
         }
+
+        // Turn off lights and emission before teleport
+        if (hallwayLights != null)
+        {
+            foreach (Light light in hallwayLights)
+            {
+                if (light != null) light.intensity = 0;
+            }
+        }
+        if (emissiveMaterial != null && emissiveMaterial.HasProperty("_EmissionColor"))
+        {
+            emissiveMaterial.SetColor("_EmissionColor", Color.black);
+        }
+
+        // **Unload Objects Before Teleporting**
+        foreach (GameObject obj in objectsToDisable)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+                Debug.Log($"Disabled: {obj.name}");
+            }
+        }
+
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+                Debug.Log($"Destroyed: {obj.name}");
+            }
+        }
+
+        // **Unload Unused Assets (helps free memory)**
+        yield return Resources.UnloadUnusedAssets();
+        Debug.Log("Unloaded unused assets!");
+
+        // **Teleport Player**
+        if (player != null)
+        {
+            Vector3 newPosition = teleportDestination != null ? teleportDestination.position
+                                                              : player.position + new Vector3(0, teleportHeightY, 0);
+            CharacterController controller = player.GetComponent<CharacterController>();
+            if (controller != null)
+            {
+                controller.enabled = false;
+                player.position = newPosition;
+                controller.enabled = true;
+            }
+            else
+            {
+                player.position = newPosition;
+            }
+
+            Debug.Log($"Player teleported to {newPosition}");
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        // Restore lights and emission
+        if (hallwayLights != null)
+        {
+            for (int i = 0; i < hallwayLights.Length; i++)
+            {
+                if (hallwayLights[i] != null)
+                    hallwayLights[i].intensity = originalLightIntensities[i];
+            }
+        }
+        if (emissiveMaterial != null && emissiveMaterial.HasProperty("_EmissionColor"))
+        {
+            emissiveMaterial.SetColor("_EmissionColor", originalEmissionColor);
+        }
+
+        isTeleporting = false;
     }
 }

@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class HallwayEndTrigger : MonoBehaviour
+public class HallwayTrigger : MonoBehaviour
 {
     [Header("Settings")]
-    public bool isDoorTrigger = true;  // TRUE for door trigger, FALSE for other triggers
     public Color gizmoColor = Color.red;
-    public Vector3 triggerSize = new Vector3(3, 3, 0.5f);
-
+    public Vector3 triggerSize = new Vector3(3, 3, 3f);
+    
     void OnDrawGizmos()
     {
-        Gizmos.color = isDoorTrigger ? Color.green : Color.red;
+        // Draw visible gizmo in the editor
+        Gizmos.color = gizmoColor;
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.DrawCube(Vector3.zero, triggerSize);
     }
-
+    
     void Start()
     {
+        // Make sure we have a collider
         if (GetComponent<Collider>() == null)
         {
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
             boxCollider.size = triggerSize;
-            Debug.Log($"[HallwayEndTrigger] Added BoxCollider to {gameObject.name} with size {triggerSize}");
         }
     }
 }

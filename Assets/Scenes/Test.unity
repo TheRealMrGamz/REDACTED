@@ -13756,7 +13756,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363202101}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: caad3cd3acf9c0d41a58ed17577d7784, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 2f6efad7ccf822146bc9ed8954485565, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -13826,7 +13826,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b0399bfc25a265648b6b6eb4488e13d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

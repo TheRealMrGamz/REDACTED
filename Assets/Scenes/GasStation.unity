@@ -8679,6 +8679,7 @@ GameObject:
   - component: {fileID: 187304812}
   - component: {fileID: 187304811}
   - component: {fileID: 187304815}
+  - component: {fileID: 187304816}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -8833,6 +8834,43 @@ MonoBehaviour:
   useTagFilter: 1
   disableAfterTriggered: 1
   hasBeenTriggered: 0
+--- !u!114 &187304816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187304809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f80c54a220bc1146833b03d14bece49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 2
+  increaseSpeed: 0.1
+  decreaseSpeed: 0.5
+  currentValue: 0
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1671653378}
+        m_TargetAssemblyTypeName: Kino.AnalogGlitch, Assembly-CSharp
+        m_MethodName: set_colorDrift
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnPlayerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &189135041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40014,6 +40052,149 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &939716729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939716730}
+  - component: {fileID: 939716734}
+  - component: {fileID: 939716733}
+  - component: {fileID: 939716732}
+  - component: {fileID: 939716731}
+  m_Layer: 0
+  m_Name: Cube (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &939716730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939716729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01105, y: 1e-15, z: -0.000000010729}
+  m_LocalScale: {x: 0.023829259, y: 0.028996354, z: 0.026980255}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2101587749}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939716731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939716729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f80c54a220bc1146833b03d14bece49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 2
+  increaseSpeed: 0.1
+  decreaseSpeed: 0.5
+  currentValue: 0
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1671653378}
+        m_TargetAssemblyTypeName: Kino.AnalogGlitch, Assembly-CSharp
+        m_MethodName: set_colorDrift
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnPlayerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &939716732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939716729}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &939716733
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939716729}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &939716734
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939716729}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &940599389
 GameObject:
   m_ObjectHideFlags: 0
@@ -68164,6 +68345,7 @@ GameObject:
   - component: {fileID: 1671653373}
   - component: {fileID: 1671653372}
   - component: {fileID: 1671653377}
+  - component: {fileID: 1671653378}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -68406,6 +68588,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1671653378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671653370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870b9a8f0f82f4f56800cc427bcd1025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanLineJitter: 0
+  _verticalJump: 0
+  _horizontalShake: 0
+  _colorDrift: 0
+  _shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
 --- !u!1 &1675600404
 GameObject:
   m_ObjectHideFlags: 0
@@ -73084,7 +73283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  runMultiplier: 1.2
+  runMultiplier: 1.4
   jumpForce: 0
   gravity: -20
   mouseSensitivity: 2
@@ -85603,6 +85802,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 187304810}
+  - {fileID: 939716730}
   m_Father: {fileID: 1208139257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2101587750

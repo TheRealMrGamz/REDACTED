@@ -10917,6 +10917,7 @@ MonoBehaviour:
     ghostMaterial: {fileID: 2100000, guid: 0382cdee85018a24eb10196ad4434683, type: 2}
   minViewDistance: 0
   maxViewDistance: 10
+  visibleButNotManifestable: 1
 --- !u!64 &261841709
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -62934,7 +62935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 141, y: 2.999939}
+  m_AnchoredPosition: {x: 141, y: 3}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1530363696
@@ -84056,6 +84057,7 @@ MonoBehaviour:
     ghostMaterial: {fileID: 2100000, guid: 5d84bd45d9ed7054ebf92ac985f71560, type: 2}
   minViewDistance: 0
   maxViewDistance: 10
+  visibleButNotManifestable: 0
 --- !u!64 &2067746365
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class PhotoManifest : MonoBehaviour
     [SerializeField] private ManifestSettings settings;
     [SerializeField] private float minViewDistance = 2f;
     [SerializeField] private float maxViewDistance = 10f;
+    [SerializeField] private bool visibleButNotManifestable = false; // New bool for visibility without manifestation
     
     private bool isManifested = false;
     private bool isVisibleThroughCamera = false;
@@ -139,6 +140,12 @@ public class PhotoManifest : MonoBehaviour
 
     public bool TryManifest()
     {
+        // Check if object is visible through camera but not manifestable
+        if (visibleButNotManifestable)
+        {
+            return false; // Cannot manifest if visibleButNotManifestable is true
+        }
+        
         if (isManifested || !isVisibleThroughCamera) return false;
 
         StartCoroutine(ManifestObject());

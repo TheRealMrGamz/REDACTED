@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="77d33682-1d1c-4b3a-83cc-c6910f3e13ca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.REDACTED/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CutsceneCam.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CutsceneCam.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DreamSeq1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DreamSeq1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GasStation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GasStation.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/House1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/House1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/House1.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/House1.unity.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +121,8 @@
       <workItem from="1742135436217" duration="614000" />
       <workItem from="1742291360889" duration="639000" />
       <workItem from="1742292150470" duration="72000" />
+      <workItem from="1742758003434" duration="71000" />
+      <workItem from="1743368908204" duration="19000" />
     </task>
     <servers />
   </component>
